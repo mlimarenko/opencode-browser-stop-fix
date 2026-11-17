@@ -1,0 +1,74 @@
+{
+  "name": "@mlimarenko/opencode-browser",
+  "version": "0.20.2-patch.1",
+  "description": "OpenCode plugin that gives the model hands in a real browser: it registers browser_* tools (open, click, type, scroll, screenshot, snapshot, …) and hosts a localhost WebSocket bridge that a companion Chromium/Firefox extension connects to. Tabs are organized into named groups so each task stays isolated and inspectable. (patched fork: broker stop closes accepted bridge sockets so guests reconnect instead of hanging)",
+  "license": "MIT",
+  "author": "vymalo contributors",
+  "homepage": "https://github.com/mlimarenko/opencode-browser-stop-fix#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mlimarenko/opencode-browser-stop-fix.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mlimarenko/opencode-browser-stop-fix/issues"
+  },
+  "keywords": [
+    "opencode",
+    "opencode-plugin",
+    "opencode-v2",
+    "browser",
+    "automation",
+    "chromium",
+    "firefox",
+    "extension",
+    "cdp",
+    "ai-sdk"
+  ],
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./lib": {
+      "types": "./dist/lib.d.ts",
+      "import": "./dist/lib.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "lint": "biome lint .",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "build": "node scripts/build-package.mjs ."
+  },
+  "dependencies": {
+    "@opencode/plugin": "2.2.6",
+    "ws": "^8.21.3"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.18.1",
+    "effect": "4.1.0",
+    "vite": "^8.3.0",
+    "vitest": "^5.0.1",
+    "oxc-transform": "0.159.0"
+  },
+  "peerDependencies": {
+    "effect": "^4.0.0"
+  }
+}
