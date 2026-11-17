@@ -149,10 +149,10 @@ export class Broker {
 
   stop(): void {
     this.rejectAllPending(new BrokerError("broker stopped"));
-    // Close accepted sockets before forgetting their registrations: a frame
-    // already queued on a live socket must not arrive after its map entry is
-    // gone (that is the `browser_frame_unauthenticated` hang). onClose still sees
-    // the populated maps during the close.
+    // The transport fences callbacks from the stopped generation synchronously,
+    // so no message or close callback can reach these maps after this point.
+    // Close the accepted sockets before clearing so guests get a bounded close;
+    // the registrations are then dropped in one synchronous step.
     this.deps.transport.stop();
     this.executors.clear();
     this.executorById.clear();
